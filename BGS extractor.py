@@ -2,12 +2,22 @@
 import pandas as pd
 import requests
 import os
+import sys
 
-def read_lines() -> pd.DataFrame:
+
+def find_file_path() -> str:
+    """Finds the path to the folder when run and returns it"""
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+    return application_path
+
+
+def read_lines(source_path: str) -> pd.DataFrame:
     """Finds the file and saves the lines to a dataframe"""
-    source = os.path.abspath("File")
-    text_file_name = [file for file in os.listdir(source) if ".txt" in file]
-    df = pd.read_csv(f'{source}/{text_file_name[0]}', delimiter='\t', index_col=False)
+    text_file_name = [file for file in os.listdir(f"{source_path}/File/") if ".txt" in file]
+    df = pd.read_csv(f'{source_path}/File/{text_file_name[0]}', delimiter='\t', index_col=False)
     return df
 
 
@@ -17,16 +27,17 @@ def extract_line(line_provided: str) -> str:
     return split_line[1]
     
 
-def download_pdf(link_string: str, reference_string: str) -> None:
+def download_pdf(link_string: str, reference_string: str, downloads_path: str) -> None:
     """Uses the link to download the scan to the downloads folder"""
-    downloads = os.path.abspath("Downloads")
     response = requests.get(link_string)
-    with open(f'{downloads}/{reference_string}.pdf', 'wb') as f:
+    with open(f'{downloads_path}/Downloads/{reference_string}.pdf', 'wb') as f:
         f.write(response.content)
 
 
 if __name__ == "__main__":
-    text_dataframe = read_lines()
+    path = find_file_path()
+
+    text_dataframe = read_lines(path)
     links_strings = text_dataframe["Record"]
 
     links = []
@@ -37,6 +48,6 @@ if __name__ == "__main__":
 
     append=0
     for link in links:    
-        download_pdf(link, references[append])
+        download_pdf(link, references[append], path)
         append += 1
         
