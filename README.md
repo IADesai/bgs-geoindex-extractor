@@ -1,4 +1,4 @@
-# bgs-geoindex-scanner
+# bgs-geoindex-extractor
 
 Downloads selected files when a text file is uploaded containing the files to be downloaded
 

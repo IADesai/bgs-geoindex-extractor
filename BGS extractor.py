@@ -5,9 +5,9 @@ import os
 
 def read_lines() -> pd.DataFrame:
     """Finds the file and saves the lines to a dataframe"""
-    source = os.path.abspath('File/')
+    source = os.path.abspath("File/")
     text_file_name = [file for file in os.listdir(source) if ".txt" in file]
-    df = pd.read_csv(f'File/{text_file_name[0]}', delimiter='\t', index_col=False)
+    df = pd.read_csv(f'{source}{text_file_name[0]}', delimiter='\t', index_col=False)
     return df
 
 
@@ -19,8 +19,9 @@ def extract_line(line_provided: str) -> str:
 
 def download_pdf(link_string: str, reference_string: str) -> None:
     """Uses the link to download the scan to the downloads folder"""
+    downloads = os.path.abspath("Downloads/")
     response = requests.get(link_string)
-    with open(f'Downloads/{reference_string}.pdf', 'wb') as f:
+    with open(f'{downloads}{reference_string}.pdf', 'wb') as f:
         f.write(response.content)
 
 
