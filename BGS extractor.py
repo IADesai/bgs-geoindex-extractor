@@ -42,7 +42,8 @@ if __name__ == "__main__":
 
     links = []
     for line in links_strings:
-        links.append(extract_line(line))
+        if "href" in line:
+            links.append(extract_line(line))
 
     references = text_dataframe["REFERENCE"]
 
