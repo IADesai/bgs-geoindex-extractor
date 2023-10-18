@@ -1,0 +1,3 @@
+# bgs-geoindex-scanner
+
+This is the folder where your downloads will be stored.
