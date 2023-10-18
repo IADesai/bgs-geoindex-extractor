@@ -12,3 +12,4 @@ Downloads selected files when a text file is uploaded containing the files to be
 
 - Place the .txt file you wish to download from in the File folder, making sure its the only file in the folder.
 - Run `python3 main.py`
+- The downloaded files will be stored in the Downloads folder. Make sure you delete the text file from the File folder before running again :)
