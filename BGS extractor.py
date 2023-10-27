@@ -3,6 +3,8 @@ import pandas as pd
 import requests
 import os
 import sys
+from time import sleep
+from tqdm import tqdm
 
 
 def find_file_path() -> str:
@@ -48,7 +50,8 @@ if __name__ == "__main__":
     references = text_dataframe["REFERENCE"].str.replace("/", "-")
 
     append=0
-    for link in links: 
+    print("Extracting PDF/s...")
+    for link in tqdm(links): 
         download_pdf(link, references[append], path)
         append += 1
         
