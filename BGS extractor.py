@@ -30,6 +30,10 @@ def extract_line(line_provided: str) -> str:
 def download_pdf(link_string: str, reference_string: str, downloads_path: str) -> None:
     """Uses the link to download the scan to the downloads folder"""
     response = requests.get(link_string)
+    parent_dir = os.path.dirname(f'{downloads_path}/Downloads/{reference_string}')
+    isExist = os.path.exists(parent_dir)
+    if not isExist:
+        os.makedirs(parent_dir)
     with open(f'{downloads_path}/Downloads/{reference_string}.pdf', 'wb') as f:
         f.write(response.content)
 
@@ -48,7 +52,7 @@ if __name__ == "__main__":
     references = text_dataframe["REFERENCE"]
 
     append=0
-    for link in links:    
+    for link in links: 
         download_pdf(link, references[append], path)
         append += 1
         
