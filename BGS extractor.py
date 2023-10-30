@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import os
 import sys
-from time import sleep
 from tqdm import tqdm
 
 
